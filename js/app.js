@@ -19,6 +19,10 @@ var userGuess;
 var secretNum;
 var count = 0;
 
+$newButton = $('a.new');
+$input = $form.find('#userGuess');
+
+
   $('form').submit(function(event){
       
       event.preventDefault();
@@ -71,6 +75,7 @@ function checkGuess(){
 function guessCounter(){
   		
   		count++;
+  		$('#count').text(count);
   	}
 
 /*********************************************************/
@@ -103,12 +108,12 @@ function guessGame(){
   		
   		if(secretNum == userGuess){
   		
-  		userFeedback = "You did it, you won! Hit the new game button to try again";
+  		$('#feedback').text("You did it, you won! Hit the new game button to try again");
   		
   		} 
   		else if(Math.abs(secretNumber - userGuess) <= 10){
   		
-  			userFeedback = 'Smokin Hot!!!';
+  			$('#feedback').text('Smokin Hot!!!');
 
   			guessCounter();
 
@@ -117,7 +122,7 @@ function guessGame(){
   		} 
   		else if(Math.abs(secretNumber - userGuess) <= 20 && Math.abs(secretNumber - userGuess) > 10){
   		
-  			userFeedback = 'Your Hot!';
+  			$('#feedback').text('Your Hot!');
 
   			guessCounter();
 
@@ -126,7 +131,7 @@ function guessGame(){
   		} 
   		else if(Math.abs(secretNumber - userGuess) <= 30 && Math.abs(secretNumber - userGuess) > 20){
   		
-  			userFeedback = 'Warming up';
+  			$('#feedback').text('Warming up');
 
   			guessCounter();
 
@@ -135,7 +140,7 @@ function guessGame(){
   		} 
   		else if(Math.abs(secretNumber - userGuess) <= 40 && Math.abs(secretNumber - userGuess) > 30){
 
-  			userFeedback = 'Your cold, come on';
+  			$('#feedback').text('Your cold, come on');
 
   			guessCounter();
 
@@ -143,7 +148,7 @@ function guessGame(){
   		}
   		else if(Math.abs(secretNumber - userGuess) <= 50 && Math.abs(secretNumber - userGuess) > 40){
 
-  			userFeedback = 'Ice cold man!';
+  			$('#feedback').text('Ice cold man!');
 
   			guessCounter();
 
@@ -151,7 +156,7 @@ function guessGame(){
   		}
   		else {
   		
-  			userFeedback = 'Subzero freezing';
+  			$('#feedback').text('Subzero freezing');
 
   			guessCounter();
 
