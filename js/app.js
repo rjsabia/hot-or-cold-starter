@@ -25,8 +25,6 @@ var guess;
 var secretNum =  Math.floor((Math.random() * 100) + 1);
 var currentCount = 0;
 
-randomNumber();
-
 getUserGuess();
 
 
