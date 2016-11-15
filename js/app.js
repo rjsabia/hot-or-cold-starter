@@ -13,12 +13,19 @@ $(document).ready(function(){
   	});
 
 });
+//Below reloads from cache for new game//
+$(".new").click(function(){
 
+  window.location.reload(false);
+
+});
+
+//game variables
 var guess;
-var secretNum;
+var secretNum =  Math.floor((Math.random() * 100) + 1);
 var currentCount = 0;
 
-randomNumber(secretNum);
+randomNumber();
 
 getUserGuess();
 
@@ -35,6 +42,8 @@ document.getElementById("guessButton").addEventListener("click", function(){
   parseInt(guess);
 
   checkGuess(guess);
+
+  document.getElementById('userGuess').value='';
 });
 
 }
@@ -60,13 +69,15 @@ function checkGuess(checkNum){
 //****************************************************
 function runGame(gameNum){
       
-      if(secretNum === guess){
+      if(Math.abs(secretNum - guess) == 0){
       
-      document.getElementById("feedback").innerHTML = "You did it, you won! Hit the new game button to try again";
+      document.getElementById("feedback").innerHTML = "You did it, you won!";
 
       guessCounter();
 
       guessPrint();
+
+      console.log(secretNum);
       
       } 
       else if(Math.abs(secretNum - guess) <= 10){
@@ -77,7 +88,7 @@ function runGame(gameNum){
 
         guessPrint();
 
-        // getUserGuess();
+        console.log(secretNum);
       
       } 
       else if(Math.abs(secretNum - guess) <= 20 && Math.abs(secretNum - guess) > 10){
@@ -88,7 +99,7 @@ function runGame(gameNum){
 
         guessPrint();
 
-        // getUserGuess();
+        console.log(secretNum);
       
       } 
       else if(Math.abs(secretNum - guess) <= 30 && Math.abs(secretNum - guess) > 20){
@@ -99,7 +110,7 @@ function runGame(gameNum){
 
         guessPrint();
 
-        // getUserGuess();
+        console.log(secretNum);
       
       } 
       else if(Math.abs(secretNum - guess) <= 40 && Math.abs(secretNum - guess) > 30){
@@ -110,7 +121,7 @@ function runGame(gameNum){
 
         guessPrint();
 
-        // getUserGuess();
+        console.log(secretNum);
       }
       else if(Math.abs(secretNum - guess) <= 50 && Math.abs(secretNum - guess) > 40){
 
@@ -120,7 +131,7 @@ function runGame(gameNum){
 
         guessPrint();
 
-        // getUserGuess();
+        console.log(secretNum);
       }
       else {
       
@@ -130,7 +141,7 @@ function runGame(gameNum){
 
         guessPrint();
 
-        // getUserGuess();
+        console.log(secretNum);
       }
     }
 
@@ -139,11 +150,12 @@ function runGame(gameNum){
    function guessCounter(){
       
       currentCount++;
+      
       document.getElementById("count").innerHTML = currentCount;
     }
 //*****************************************************************
 
-function randomNumber(secretNum){
+function randomNumber(){
 
   secretNum =  Math.floor((Math.random() * 100) + 1);
 
@@ -157,12 +169,14 @@ function guessPrint(){
 }
 
 /***********************************************************/
-function randomNumber(secretNum){
+//Below are functions I am testing to make this work more effciently
+//*****************************************************************
+// function randomNumber(secretNum){
 
-	secretNum =  Math.floor((Math.random() * 100) + 1);
+// 	secretNum =  Math.floor((Math.random() * 100) + 1);
 
-	return secretNum;
-}
+// 	return secretNum;
+// }
 
 //********************************************************
 // function newGame(){
