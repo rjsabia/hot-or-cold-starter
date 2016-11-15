@@ -14,79 +14,147 @@ $(document).ready(function(){
 
 });
 
-/*Variables*/
-var userGuess;
+var guess;
 var secretNum;
-var count = 0;
+var currentCount = 0;
 
-$newButton = $('a.new');
-$input = $form.find('#userGuess');
+randomNumber(secretNum);
+
+getUserGuess();
 
 
-  $('form').submit(function(event){
-      
-      event.preventDefault();
-      
-      getUserGuess();
-    });
-   
-    $('newButton').click(newGame);
-};
-
+//*****************************************************
 function getUserGuess(){
-  		//get the user guess
-  		
-  		userGuess = $input.val();
-  		
-  		$input.val('');
-  		
-  		$input.focus();
-  		
-  		checkGuess()
-  		
-  	}
-/*********************************************************/
-function checkGuess(){
 
-		parseInt(userGuess);
+document.getElementById("guessButton").addEventListener("click", function(){
+  
+  event.preventDefault();
+  
+  guess = document.getElementById("userGuess").value;
 
-  		if(!(userGuess % 1 == 0)){
-  			
-  			alert("please input a number");
-  			
-  			getUserGuess();
-  		}
-  		
-  		else if(!(userGuess > 0) || !(userGuess < 101)){
-  			
-  			alert("please choose a number between zero and 100");
-  			
-  			getUserGuess();
-  		}
-  		else{
+  parseInt(guess);
 
-  			guessGame();
-  		}
-		
-    
-	}
+  checkGuess(guess);
+});
 
-/*********************************************************/
-function guessCounter(){
-  		
-  		count++;
-  		$('#count').text(count);
-  	}
+}
 
-/*********************************************************/
-function newGame(){
-  		
-  		$('form').find('input[type=submit]');
-  		clearVariables();
-  		randomNumber();
-  	}
+//******************************************************
+function checkGuess(checkNum){
 
+  if(guess % 1 != 0){
 
+    alert('Please input whole number');
+  }
+  else if( guess < 1 || guess > 100){
+
+    alert('Please enter a number between 1 and 100');
+  }
+  else {
+
+    runGame(guess);
+  }
+
+}
+
+//****************************************************
+function runGame(gameNum){
+      
+      if(secretNum === guess){
+      
+      document.getElementById("feedback").innerHTML = "You did it, you won! Hit the new game button to try again";
+
+      guessCounter();
+
+      guessPrint();
+      
+      } 
+      else if(Math.abs(secretNum - guess) <= 10){
+      
+       document.getElementById("feedback").innerHTML = 'Smokin Hot!!!';
+
+        guessCounter();
+
+        guessPrint();
+
+        // getUserGuess();
+      
+      } 
+      else if(Math.abs(secretNum - guess) <= 20 && Math.abs(secretNum - guess) > 10){
+      
+        document.getElementById("feedback").innerHTML = 'Your Hot!';
+
+        guessCounter();
+
+        guessPrint();
+
+        // getUserGuess();
+      
+      } 
+      else if(Math.abs(secretNum - guess) <= 30 && Math.abs(secretNum - guess) > 20){
+      
+        document.getElementById("feedback").innerHTML = 'Warming up';
+
+        guessCounter();
+
+        guessPrint();
+
+        // getUserGuess();
+      
+      } 
+      else if(Math.abs(secretNum - guess) <= 40 && Math.abs(secretNum - guess) > 30){
+
+        document.getElementById("feedback").innerHTML = 'Your cold, come on';
+
+        guessCounter();
+
+        guessPrint();
+
+        // getUserGuess();
+      }
+      else if(Math.abs(secretNum - guess) <= 50 && Math.abs(secretNum - guess) > 40){
+
+        document.getElementById("feedback").innerHTML = 'Ice cold man!';
+
+        guessCounter();
+
+        guessPrint();
+
+        // getUserGuess();
+      }
+      else {
+      
+        document.getElementById("feedback").innerHTML = 'Subzero freezing';
+
+        guessCounter();
+
+        guessPrint();
+
+        // getUserGuess();
+      }
+    }
+
+   //*************************************************************
+
+   function guessCounter(){
+      
+      currentCount++;
+      document.getElementById("count").innerHTML = currentCount;
+    }
+//*****************************************************************
+
+function randomNumber(secretNum){
+
+  secretNum =  Math.floor((Math.random() * 100) + 1);
+
+  return secretNum;
+}
+//****************************************************************
+
+function guessPrint(){
+
+  $('#guessList').append('<li>' + guess + '</li>');
+}
 
 /***********************************************************/
 function randomNumber(secretNum){
@@ -95,71 +163,30 @@ function randomNumber(secretNum){
 
 	return secretNum;
 }
+
+//********************************************************
+// function newGame(){
+
+//   document.getElementById("new").addEventListener("click", function(){
+
+//     window.location.reload(false);
+//   }
+// }
 /*********************************************************/
-function clearVariables(){
+// function newGame(){
+      
+//       document.getElementById("guessButton").addEventListener("click", function(){
+//       clearVariables();
+//       randomNumber();
+//     }
+//     }
+// //**********************************************************
+// function clearVariables(){
 
-	count = 0;
-	feedback = 'Make your Guess!';
-	userGuess = '';
-	guessList = '';
-}
-/******************************************************/
-function guessGame(){
-  		
-  		if(secretNum == userGuess){
-  		
-  		$('#feedback').text("You did it, you won! Hit the new game button to try again");
-  		
-  		} 
-  		else if(Math.abs(secretNumber - userGuess) <= 10){
-  		
-  			$('#feedback').text('Smokin Hot!!!');
+// 	currentCount = 0;
+// 	document.getElementById("feedback").innerHTML = 'Make your Guess!';
+// 	guess = '';
+// 	document.getElementById("guessList").innerHTML = '';
+// }
+// /******************************************************/
 
-  			guessCounter();
-
-  			getUserGuess();
-  		
-  		} 
-  		else if(Math.abs(secretNumber - userGuess) <= 20 && Math.abs(secretNumber - userGuess) > 10){
-  		
-  			$('#feedback').text('Your Hot!');
-
-  			guessCounter();
-
-  			getUserGuess();
-  		
-  		} 
-  		else if(Math.abs(secretNumber - userGuess) <= 30 && Math.abs(secretNumber - userGuess) > 20){
-  		
-  			$('#feedback').text('Warming up');
-
-  			guessCounter();
-
-  			getUserGuess();
-  		
-  		} 
-  		else if(Math.abs(secretNumber - userGuess) <= 40 && Math.abs(secretNumber - userGuess) > 30){
-
-  			$('#feedback').text('Your cold, come on');
-
-  			guessCounter();
-
-  			getUserGuess();
-  		}
-  		else if(Math.abs(secretNumber - userGuess) <= 50 && Math.abs(secretNumber - userGuess) > 40){
-
-  			$('#feedback').text('Ice cold man!');
-
-  			guessCounter();
-
-  			getUserGuess();
-  		}
-  		else {
-  		
-  			$('#feedback').text('Subzero freezing');
-
-  			guessCounter();
-
-  			getUserGuess();
-  		}
-  	}
